@@ -362,6 +362,10 @@ function funForem()
 
     # Create and Link Databases
     echo "${YELLOW}Creating Postgresdb${END}"
+    export POSTGRES_IMAGE="postgres"
+    wait
+    export POSTGRES_IMAGE_VERSION="13.3"
+    wait
     dokku postgres:create foremdb
     wait
     echo "${YELLOW}Creating Redisdb${END}"
