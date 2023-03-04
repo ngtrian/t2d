@@ -364,7 +364,7 @@ function funForem()
     echo "${YELLOW}Creating Postgresdb${END}"
     export POSTGRES_IMAGE="postgres"
     wait
-    export POSTGRES_IMAGE_VERSION="13.3"
+    export POSTGRES_IMAGE_VERSION="13.10"
     wait
     dokku postgres:create foremdb
     wait
@@ -546,12 +546,12 @@ function funCheck()
     if which dokku >/dev/null; then
         echo "${GREEN}Dokku Exists${END}"
         DOKKU_VERSION="$(dokku -v | awk '{print $3}')"
-        if [[ "$DOKKU_VERSION" == "0.24.10" ]];
+        if [[ "$DOKKU_VERSION" == "0.30.1" ]];
         then
-            echo "${YELLOW}Dokku Version: ${GREEN}0.24.10${END} => Skipping Dokku Update promt"
+            echo "${YELLOW}Dokku Version: ${GREEN}0.30.1${END} => Skipping Dokku Update promt"
         else
             # Promt for update
-            if (whiptail --title "Updating Dokku to Latest Version" --yes-button "Update" --no-button "Skip"  --yesno "Latest Dokku Version: 0.24.10\nInstalled Dokku Version: $DOKKU_VERSION" 10 60) then
+            if (whiptail --title "Updating Dokku to Latest Version" --yes-button "Update" --no-button "Skip"  --yesno "Latest Dokku Version: 0.30.1\nInstalled Dokku Version: $DOKKU_VERSION" 10 60) then
                 echo "${YELLOW}You chose Update.${END}"
                 # Update Dokku
                 echo "${YELLOW}Upgrading Dokku${END}"
@@ -576,9 +576,9 @@ function funCheck()
         whiptail --title "Unable to Detect Dokku" --msgbox "If you want to insatll your app using t2d, it is madatory to install Dokku. So, I would like to install Dokku on behalf of you." 10 60
         wait
         echo "${YELLOW}Downloading Dokku from its Official Repository${END}"
-        wget https://raw.githubusercontent.com/dokku/dokku/v0.24.10/bootstrap.sh
+        wget https://dokku.com/install/v0.30.1/bootstrap.sh
         wait
-        sudo DOKKU_TAG=v0.24.10 bash bootstrap.sh &
+        sudo DOKKU_TAG=v0.30.1 bash bootstrap.sh &
         process_id=$!
         wait $process_id
         echo "Exit status: $?"
